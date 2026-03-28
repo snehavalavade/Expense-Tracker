@@ -1,0 +1,7 @@
+export default function DashboardLoading() {
+    return (
+        <main style={{ padding: "2rem" }}>
+            <p>Loading...</p>
+        </main>
+    );
+}
