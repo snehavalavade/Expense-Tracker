@@ -1,0 +1,164 @@
+.page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f7f6f3;
+    padding: 1rem;
+}
+
+.container {
+    width: 100%;
+    max-width: 420px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 2rem;
+    text-decoration: none;
+}
+
+.logoIcon {
+    width: 36px;
+    height: 36px;
+    background: #1a1a1a;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logoText {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+    font-family: "Georgia", serif;
+}
+
+.card {
+    background: white;
+    border: 1px solid #e8e6e1;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.cardHeader {
+    margin-bottom: 1.75rem;
+}
+
+.cardHeader h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 4px;
+    letter-spacing: -0.5px;
+    font-family: "Georgia", serif;
+}
+
+.cardHeader p {
+    font-size: 14px;
+    color: #888;
+    margin: 0;
+}
+
+.field {
+    margin-bottom: 1rem;
+}
+
+.field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 6px;
+}
+
+.field input {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid #e8e6e1;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #1a1a1a;
+    background: #fafaf8;
+    box-sizing: border-box;
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+    outline: none;
+    font-family: inherit;
+}
+
+.field input:focus {
+    border-color: #1a1a1a;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.06);
+}
+
+.field input::placeholder {
+    color: #bbb;
+}
+
+.submitBtn {
+    width: 100%;
+    padding: 12px;
+    background: #1a1a1a;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition:
+        background 0.2s,
+        transform 0.1s;
+    font-family: inherit;
+    letter-spacing: 0.2px;
+}
+
+.submitBtn:hover {
+    background: #333;
+}
+
+.submitBtn:active {
+    transform: scale(0.99);
+}
+
+.error {
+    font-size: 13px;
+    color: #dc2626;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.footer {
+    text-align: center;
+    font-size: 13px;
+    color: #888;
+    margin-top: 1.25rem;
+}
+
+.footer a {
+    color: #1a1a1a;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.divider {
+    height: 1px;
+    background: #e8e6e1;
+    margin: 1.5rem 0;
+}

@@ -2,7 +2,7 @@
 import { useActionState } from "react";
 import { useEffect, useState } from "react";
 import { addExpense } from "@/lib/actions";
-import Modal from "../ui/modal";
+import classes from "./add-expense.module.css";
 
 export default function AddExpense() {
     const [state, formAction] = useActionState(addExpense, { message: null });
@@ -16,68 +16,100 @@ export default function AddExpense() {
 
     return (
         <>
-            <button onClick={() => setIsModalOpen(true)}>Add Expense</button>
+            <button
+                className={classes.addBtn}
+                onClick={() => setIsModalOpen(true)}
+            >
+                + Add Expense
+            </button>
 
             {isModalOpen && (
-                <Modal onClose={() => setIsModalOpen(false)}>
-                    <header>
-                        <h3>Add Expense</h3>
-                        <p>Track a new expense to your account.</p>
-                    </header>
-                    <main>
+                <div
+                    className={classes.overlay}
+                    onClick={() => setIsModalOpen(false)}
+                >
+                    <div
+                        className={classes.modal}
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        {/* Modal header */}
+                        <div className={classes.modalHeader}>
+                            <h3>Add Expense</h3>
+                            <p>Track a new expense to your account.</p>
+                        </div>
+
+                        {/* Form */}
                         <form action={formAction}>
-                            <p>
+                            <div className={classes.field}>
                                 <label htmlFor="title">Title</label>
                                 <input
                                     type="text"
                                     id="title"
                                     name="title"
+                                    placeholder="e.g. Dinner at Meghana Foods"
                                     required
                                 />
-                            </p>
-                            <p>
-                                <label htmlFor="amount">Amount</label>
-                                <input
-                                    type="number"
-                                    id="amount"
-                                    name="amount"
-                                    required
-                                />
-                            </p>
-                            <p>
+                            </div>
+
+                            <div className={classes.fieldRow}>
+                                <div className={classes.field}>
+                                    <label htmlFor="amount">Amount (₹)</label>
+                                    <input
+                                        type="number"
+                                        id="amount"
+                                        name="amount"
+                                        placeholder="0"
+                                        required
+                                    />
+                                </div>
+                                <div className={classes.field}>
+                                    <label htmlFor="date">Date</label>
+                                    <input
+                                        type="date"
+                                        id="date"
+                                        name="date"
+                                        required
+                                    />
+                                </div>
+                            </div>
+
+                            <div className={classes.field}>
                                 <label htmlFor="category">Category</label>
-                                <select name="category">
-                                    <option value="Food">Food</option>
-                                    <option value="Transport">Transport</option>
-                                    <option value="Bills">Bills</option>
-                                    <option value="Shopping">Shopping</option>
-                                    <option value="Other">Other</option>
+                                <select id="category" name="category">
+                                    <option value="Food">🍔 Food</option>
+                                    <option value="Transport">
+                                        🚗 Transport
+                                    </option>
+                                    <option value="Bills">💡 Bills</option>
+                                    <option value="Shopping">
+                                        🛍️ Shopping
+                                    </option>
+                                    <option value="Other">📦 Other</option>
                                 </select>
-                            </p>
-                            <p>
-                                <label htmlFor="date">Date</label>
-                                <input
-                                    type="date"
-                                    id="date"
-                                    name="date"
-                                    required
-                                />
-                            </p>
+                            </div>
+
                             {state.message && state.message !== "Success!" && (
-                                <p>{state.message}</p>
+                                <p className={classes.error}>{state.message}</p>
                             )}
-                            <div>
-                                <button type="submit">Save expense</button>
+
+                            <div className={classes.actions}>
+                                <button
+                                    type="submit"
+                                    className={classes.saveBtn}
+                                >
+                                    Save expense
+                                </button>
                                 <button
                                     type="button"
+                                    className={classes.cancelBtn}
                                     onClick={() => setIsModalOpen(false)}
                                 >
                                     Cancel
                                 </button>
                             </div>
                         </form>
-                    </main>
-                </Modal>
+                    </div>
+                </div>
             )}
         </>
     );

@@ -1,25 +1,29 @@
 import ExpenseSummary from "@/components/expense/expense-summary";
+import ExpenseList from "@/components/expense/expense-list";
+import AddExpense from "@/components/expense/add-expense";
 import { getCurrentUser } from "@/lib/auth";
 import { getExpenses } from "@/lib/expenses";
-import AddExpense from "@/components/expense/add-expense";
-import { redirect } from "next/dist/server/api-utils";
+import { redirect } from "next/navigation";
+import classes from "./page.module.css";
 
 export default async function DashboardPage() {
     const user = await getCurrentUser();
-    if (!user) redirect("/login");
+    if (!user) {
+        redirect("/login");
+    }
+
     const expenses = getExpenses(user.id);
 
     return (
-        <>
-            <header>
-                <h1>Welcome {user.name}!</h1>
-            </header>
-            <main>
+        <div className={classes.page}>
+            <main className={classes.main}>
                 <ExpenseSummary expenses={expenses} />
-                <div>
+                <div className={classes.toolbar}>
+                    <p className={classes.sectionTitle}>Your Expenses</p>
                     <AddExpense />
                 </div>
+                <ExpenseList expenses={expenses} />
             </main>
-        </>
+        </div>
     );
 }

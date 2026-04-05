@@ -1,32 +1,56 @@
+import classes from "@/app/dashboard/page.module.css";
+
 export default function ExpenseSummary({ expenses }) {
-    const result = expenses.reduce(
-        (acc, expense) => {
-            acc.totalExpense += expense.amount;
-            acc.count = expenses.length;
-            return acc;
-        },
-        { totalExpense: 0, count: 0 },
+    const totalExpense = expenses.reduce(
+        (acc, expense) => acc + expense.amount,
+        0,
     );
+
     const now = new Date();
-    const currentMonth = now.getMonth();
-    const currentYear = now.getFullYear();
-    const monthlyExpenses = expenses
+    const monthlyExpense = expenses
         .filter((expense) => {
-            const expenseDate = new Date(expense.date);
+            const d = new Date(expense.date);
             return (
-                expenseDate.getMonth() === currentMonth &&
-                expenseDate.getFullYear() === currentYear
+                d.getMonth() === now.getMonth() &&
+                d.getFullYear() === now.getFullYear()
             );
         })
-        .reduce((sum, expense) => (sum += expense.amount), 0);
+        .reduce((acc, expense) => acc + expense.amount, 0);
+
+    const categoryTotals = expenses.reduce((acc, expense) => {
+        acc[expense.category] = (acc[expense.category] || 0) + expense.amount;
+        return acc;
+    }, {});
+
+    const topCategory =
+        Object.keys(categoryTotals).length > 0
+            ? Object.keys(categoryTotals).reduce((a, b) =>
+                  categoryTotals[a] > categoryTotals[b] ? a : b,
+              )
+            : "—";
 
     return (
-        <>
-            <div>
-                <p>Total Expense: {result.totalExpense}</p>
-                <p>Expenses: {result.count}</p>
-                <p>Monthly Expenses: {monthlyExpenses}</p>
+        <div className={classes.summaryGrid}>
+            <div className={classes.summaryCard}>
+                <p className={classes.summaryLabel}>Total spent</p>
+                <p className={classes.summaryValue}>
+                    ₹{totalExpense.toLocaleString()}
+                </p>
             </div>
-        </>
+            <div className={classes.summaryCard}>
+                <p className={classes.summaryLabel}>This month</p>
+                <p className={classes.summaryValue}>
+                    ₹{monthlyExpense.toLocaleString()}
+                </p>
+            </div>
+            <div className={classes.summaryCard}>
+                <p className={classes.summaryLabel}>Expenses</p>
+                <p className={classes.summaryValue}>{expenses.length}</p>
+            </div>
+            <div className={classes.summaryCard}>
+                <p className={classes.summaryLabel}>Top category</p>
+                <p className={classes.summaryValue}>{topCategory}</p>
+            </div>
+        </div>
     );
 }
